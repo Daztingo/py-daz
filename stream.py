@@ -10,6 +10,9 @@ class MyListener(StreamListener):
 	def __init__(self, data_dir, query):
 		#Based on https://gist.github.com/bonzanini/af0463b927433c73784d
 		query_fname = helper.format_filename(query)
+		#Handle case where  user doesn't want to filter
+		if query_fname == '' :
+			query_fname = 'all'
 		self.outfile = "%s/stream_%s.json" % (data_dir, query_fname)
 		print 'Stream available at : ' + self.outfile
 		
@@ -31,6 +34,7 @@ class MyListener(StreamListener):
 def getStream(api, auth) :
 	#Fetch stream of statuses based on an hashtag given later by the user
 	keyword = raw_input('Indicate keyword you want to look at : ')
+	#We get keyword here, due to potential evolutions where we would be allowed to indicate multiple keywords	
 	if '#' in keyword :
 		hashtag = keyword
 	else :

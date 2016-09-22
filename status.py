@@ -9,6 +9,7 @@ def getStatuses(api) :
 		print('')
 
 def getStatusesForId(user, api) :
+	#Fetch status for given user
 	for status in api.user_timeline(user):
 		# Process a single status
 		if re.match(r'^RT', status.text) :
@@ -19,4 +20,3 @@ def getStatusesForId(user, api) :
 			# Standard tweet
 			print(status.text) 
 			print('')
-		
