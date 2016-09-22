@@ -1,14 +1,44 @@
-import twitter;
+# coding=utf-8
+import tweepy
+import auth
+import stream
 
-api = twitter.Api(consumer_key='vLOImLTkAfh20n61M7QNuPDzL',
-                  consumer_secret='R96EhFIExKUlHNsXxjBq88jhkvXzPMscNR7S1filRg7IZacjjC',
-                  access_token_key='2745774121-mEljXbbrsOpXd2uSJFHaeRnPgrNtFP7jqv6gpcr',
-                  access_token_secret='wRzznLRVjB9CyNXsrEes8Kvx56kxLN1qc3iNeyH7hx2er')
-                      
-print(api.VerifyCredentials())
 
-statuses = api.GetUserTimeline(screen_name='dazleria')
-print([s.text for s in statuses])
+authentificationToken = auth.initAuth()
+api = auth.initApi(authentificationToken)
 
-followers = api.GetFollowers('7374782')
-print(followers)
+print(
+"""########################################################
+
+           Welcome to Twitter                         
+           Please make à choice                       
+           =============================	       
+           1- Get last timeline statuses             
+           2- get stream for given keyword
+           Q- Quit	       
+           
+########################################################			
+""")
+		 
+while 1 :
+	userChoice = raw_input('Enter your choice ')
+	userChoice = userChoice.lower()
+	
+	if userChoice == 'q' :
+		exit('THE END')
+
+
+	#Seems not to be beautiful, should search how to use dictionnary
+	#But functions get differents arguments so that's the pb
+	
+	if userChoice == '1' :
+		stream.getStatuses(api)
+	elif userChoice == '2' :
+		stream.getStream(api, authentificationToken)
+
+
+
+
+ 
+ 
+
